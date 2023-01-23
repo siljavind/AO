@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "StarLight";
+  src: url(/assets/fonts/Starjhol.ttf);
+}
+
+@font-face {
+  font-family: "StarHeavy";
+  src: url(/assets/fonts/Starjedi.ttf);
+}
+
+@font-face {
+  font-family: "OpenCrawl";
+  src: url(/assets/fonts/Trade\ Gothic\ LT\ Bold\ No.\ 2.ttf);
+}
+
+* {
+  --yellow: rgb(249, 226, 43);
+  --yellow1: #ffc800;
+  --blue: rgb(100, 222, 238);
+  --darkGrey: rgb(161, 161, 161);
+  --lightGrey: rgb(205, 205, 205);
+}
+
+body {
+  min-height: 300vh;
+  width: 100vw;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+
+  background: url(/assets/img/troopers.jpg) no-repeat;
+  background-size: cover;
+  background-position-x: center;
+
+  font-family: "OpenCrawl";
+}
+
+.wrapper {
+  width: 100vw;
+  padding: 0 20px;
+}
+
+.menuBar {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.menuItem {
+  color: var(--yellow);
+  font-family: "StarLight";
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  text-shadow: 0 0 8px var(--blue);
+}
+
+.active {
+  font-family: "StarHeavy";
+}
+
+p {
+  color: var(--yellow);
+}
+
+.scroller {
+  position: fixed;
+  width: 2px;
+  height: 100%;
+  right: 0px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
