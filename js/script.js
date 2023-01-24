@@ -1,14 +1,6 @@
 const keyFilter = ["created", "edited", "url"];
 const valueFilter = ["https://"];
-const baseUrl = "https://swapi.dev/api/"
-// const endpoints = [
-//     "posts",
-//     "comments",
-//     "albums",
-//     "photos",
-//     "todos",
-//     "users"
-// ];
+const baseUrl = "https://swapi.dev/api/";
 
 const menuBar = document.getElementById("menuBar");
 const content = document.getElementById("content");
@@ -33,22 +25,11 @@ fetch(baseUrl)
         console.log(error)
     });
 
-function buildMenu() {
-    endpoints.forEach(endpoint => {
-        const menuItem = document.createElement("a");
-
-        menuItem.className = "menuItem";
-        menuItem.addEventListener("click", menuClick);
-        menuItem.href = baseUrl + endpoint;
-        menuItem.innerText = endpoint;
-
-        menuBar.appendChild(menuItem);
-    })
-
-};
-
 async function menuClick(e) {
     e.preventDefault();
+
+    document.querySelector(".active")?.classList.remove("active");
+    e.target.classList.add("active");
 
     const data = await getData(e.target.href);
     showData(data, e.target.href);
@@ -59,135 +40,48 @@ async function getData(url) {
     return await response.json();
 };
 
-function showData(data, menuURL) {
+function showData(data) {
 
     content.innerHTML = "";
 
+    //console.log(data.results);
+
     data.results.forEach(item => {
-        console.log(item);
+
         const card = document.createElement("div");
+
         card.className = "card";
 
         for (const [key, value] of Object.entries(item)) {
-            console.log(value)
-            if (typeof value === "object" || keyFilter.includes(key) || value?.includes('https')) {
-                continue;
-            }
-            else {
-                const p = document.createElement("p");
-                p.innerHTML = `<span class="keyStyle">${titleCase(key)}:</span> ${value}`;
-
-                card.dataset.url = `${menuURL}/${item.id}`;
-
-                card.appendChild(p);
-
-                card.addEventListener("click",
-                    showAllData(data);
-            });
-    /*card.addEventListener("click", async () => {
-        const data = await getData(card.dataset.url);
-        showAllData(data);
-    });*/
-
-    content.appendChild(card);
-
-}
-
-        }
-
-    });
-
-    /*data.forEach(item => {
-
-        const card = document.createElement("div");
-        card.className = "card";
-
-        for (const [key, value] of Object.entries(item)) {
-            if (typeof value === "object" || filter.includes(key)) {
-                console.log(value);
-                continue;
-            }
-            else {
-                const p = document.createElement("p");
-                p.innerHTML = `<span class="keyStyle">${titleCase(key)}:</span> ${value}`;
-
-                card.dataset.url = `${menuURL}/${item.id}`;
-
-                card.appendChild(p);
-                content.appendChild(card);
-
-                if (menuURL.endsWith("photos")) {
-                    card.addEventListener("click", () => {
-                        const subCard = document.createElement("div");
-                        subCard.className = "card";
-
-                        const img = document.createElement("img");
-                        img.src = item.url;
-                        console.log(item.url);
-
-                        subCard.appendChild(img);
-
-                        clearContent(content);
-                        const card = document.createElement("div");
-                        card.className = "card";
-
-                        content.appendChild(subCard);
-                    });
+            try {
+                if (typeof value === "object" || keyFilter.includes(key) || value.includes('https')) {
+                    continue;
                 }
                 else {
-                    card.addEventListener("click", async () => {
-                        const data = await getDataFromURL(card.dataset.url);
-                        showAllData(data);
-                    });
-                }
+                    const p = document.createElement("p");
+                    p.innerHTML = `${titleCase(key)}: ${value}`;
 
-            }
+                    card.dataset.url = item.url;
+                    card.appendChild(p);
 
-            /*else if (key === "id" && menuURL.endsWith("users")) {
-
-                card.dataset.url = `${menuURL}/${value}`;
-
-                console.log(card.dataset.url);
-
-                card.addEventListener("click", async () => {
-                    const data = await getDataFromURL(card.dataset.url);
-                    showAllData(data);
-                });
-            }*/
-
-
-                /*if (menuURL.endsWith("photos")) {
-            
                     card.addEventListener("click", () => {
-                        const subCard = document.createElement("div");
-                        subCard.className = "card";
-            
-                        const img = document.createElement("img");
-                        img.src = `${menuURL}/${item.id}`;
-            
-                        subCard.appendChild(img);
-                        clearContent(content);
-                        const card = document.createElement("div");
-                        card.className = "card";
-            
-                        content.appendChild(subCard);
+                        showAllData(item);
                     });
+
+                    content.appendChild(card);
                 }
-            
-            
-            
-            
+            } catch (error) {
+                //console.log(error);
             }
-            
-            
-                })*/
 
+        }
+    });
+};
 
-            };
+async function showAllData(data) {
 
-function showAllData(data) {
-    console.log(data);
     clearContent(content);
+
     const card = document.createElement("div");
     card.className = "card";
     content.appendChild(card);
@@ -204,10 +98,11 @@ function showAllData(data) {
 
             subCategory.appendChild(category);
 
-            for (const [subKey, subValue] of Object.entries(value)) {
+            for (const key in value) {
 
                 const p = document.createElement("p");
-                p.innerHTML = `${subKey}: ${subValue}`;
+
+                p.innerHTML = value[key];
                 subCategory.appendChild(p);
             }
 
@@ -215,28 +110,11 @@ function showAllData(data) {
         }
         else {
             const p = document.createElement("p");
-            p.innerHTML = `<span class="keyStyle">${key}</span>: ${value}`;
+            p.innerHTML = `${key}: ${value}`;
             card.appendChild(p);
         }
     }
 };
-
-/*function showImage() {
-    card.addEventListener("click", () => {
-        const subCard = document.createElement("div");
-        subCard.className = "card";
- 
-        const img = document.createElement("img");
-        img.src = `${menuURL}/${item.id}`;
- 
-        subCard.appendChild(img);
-        clearContent(content);
-        const card = document.createElement("div");
-        card.className = "card";
- 
-        content.appendChild(subCard);
-    });
-}*/
 
 function clearContent(element) {
     while (element.firstChild) {
@@ -244,21 +122,6 @@ function clearContent(element) {
     }
 
 }
-
-//buildMenu();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // STYLING/EXTRA
 const titleCase = (s) =>
@@ -278,23 +141,11 @@ window.onscroll = () => {
     ).style.background = `linear-gradient(to bottom, rgb(249, 226, 43) ${scrollPercentRounded}%, #0000 ${scrollPercentRounded}%)`;
 };
 
+if (document.querySelector(".active") == null) {
+    let p = document.createElement("p");
+    p.innerHTML = "da da da da da da da da da da da da da da da da da!<br><br>da da da da da da da da da da da da da da da da da!";
+    p.className = "dadada";
 
-
-/*if (menuURL.endsWith("photos")) {
-                    card.addEventListener("click", () => {
-                        const subCard = document.createElement("div");
-                        subCard.className = "card";
-
-                        const img = document.createElement("img");
-                        img.src = item.url;
-                        console.log(item.url);
-
-                        subCard.appendChild(img);
-
-                        clearContent(content);
-                        const card = document.createElement("div");
-                        card.className = "card";
-
-                        content.appendChild(subCard);
-                    });
-                }*/
+    let dadadaContainer = document.getElementById("dadadaContainer");
+    dadadaContainer.appendChild(p);
+}

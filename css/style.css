@@ -15,7 +15,6 @@
 
 * {
   --yellow: rgb(249, 226, 43);
-  --yellow1: #ffc800;
   --blue: rgb(100, 222, 238);
   --darkGrey: rgb(161, 161, 161);
   --lightGrey: rgb(205, 205, 205);
@@ -61,6 +60,10 @@ body {
   text-shadow: 0 0 8px var(--blue);
 }
 
+.active {
+  font-family: "StarHeavy";
+}
+
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -69,7 +72,7 @@ body {
 }
 
 .card {
-  border: 2px outset var(--darkGrey);
+  border: 2px outset var(--yellow);
   border-radius: 12px;
   backdrop-filter: blur(60px);
   margin-top: 30px;
@@ -97,11 +100,8 @@ body {
 }
 
 p {
-  color: var(--darkGrey);
-}
-
-.keyStyle {
-  color: var(--lightGrey);
+  color: rgb(8, 8, 8);
+  font-size: 18px;
 }
 
 .scroller {
@@ -114,4 +114,19 @@ p {
 ::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+
+.dadadaContainer {
+  display: flex;
+  justify-content: center;
+}
+.dadada {
+  color: var(--yellow);
+  font-family: "StarHeavy";
+  width: min-content;
+  transform: perspective(800px) rotateX(80deg);
+  font-size: 25px;
+  position: relative;
+  top: -390px;
+  white-space: break-spaces;
 }
