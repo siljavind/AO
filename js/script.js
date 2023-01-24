@@ -1,4 +1,4 @@
-const keyFilter = ["created", "edited", "url"];
+const keyFilter = ["created", "edited"];
 const valueFilter = ["https://"];
 const baseUrl = "https://swapi.dev/api/";
 
@@ -13,13 +13,14 @@ fetch(baseUrl)
 
         for (const key in data) {
             let menuItem = document.createElement("a");
+
             menuItem.className = "menuItem";
             menuItem.innerText = key;
             menuItem.href = data[key];
             menuItem.addEventListener("click", menuClick);
+
             menuBar.appendChild(menuItem);
         }
-
     })
     .catch(error => {
         console.log(error)
@@ -32,7 +33,7 @@ async function menuClick(e) {
     e.target.classList.add("active");
 
     const data = await getData(e.target.href);
-    showData(data, e.target.href);
+    showData(data);
 };
 
 async function getData(url) {
@@ -44,8 +45,6 @@ function showData(data) {
 
     content.innerHTML = "";
 
-    //console.log(data.results);
-
     data.results.forEach(item => {
 
         const card = document.createElement("div");
@@ -53,6 +52,7 @@ function showData(data) {
         card.className = "card";
 
         for (const [key, value] of Object.entries(item)) {
+
             try {
                 if (typeof value === "object" || keyFilter.includes(key) || value.includes('https')) {
                     continue;
@@ -90,23 +90,23 @@ async function showAllData(data) {
 
         if (typeof value === "object") {
 
-            const subCategory = document.createElement("div");
-            subCategory.className = "subCategory";
+            const subCard = document.createElement("div");
+            subCard.className = "subCard";
             const category = document.createElement("p");
 
             category.innerHTML = key;
 
-            subCategory.appendChild(category);
+            subCard.appendChild(category);
 
             for (const key in value) {
 
                 const p = document.createElement("p");
 
                 p.innerHTML = value[key];
-                subCategory.appendChild(p);
+                subCard.appendChild(p);
             }
 
-            card.appendChild(subCategory);
+            card.appendChild(subCard);
         }
         else {
             const p = document.createElement("p");

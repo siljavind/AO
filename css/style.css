@@ -72,7 +72,7 @@ body {
 }
 
 .card {
-  border: 2px outset var(--yellow);
+  border: 2px outset var(--darkGrey);
   border-radius: 12px;
   backdrop-filter: blur(60px);
   margin-top: 30px;
@@ -81,26 +81,13 @@ body {
 }
 
 .subCard {
-  border: 2px outset var(--darkGrey);
-  border-radius: 12px;
-  backdrop-filter: blur(30px);
-  margin-top: 30px;
-  padding: 30px;
-  min-width: fit-content;
-}
-
-.subCategory {
   border-left: 1px solid var(--darkGrey);
   margin-left: 5px;
   text-indent: 5px;
 }
 
-.active {
-  font-family: "StarHeavy";
-}
-
 p {
-  color: rgb(8, 8, 8);
+  color: var(--yellow);
   font-size: 18px;
 }
 
@@ -120,6 +107,7 @@ p {
   display: flex;
   justify-content: center;
 }
+
 .dadada {
   color: var(--yellow);
   font-family: "StarHeavy";
