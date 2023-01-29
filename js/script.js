@@ -1,6 +1,5 @@
-const keyFilter = ["created", "edited"];
-const valueFilter = ["https://"];
-const baseUrl = "https://swapi.dev/api/";
+const filter = ["created", "edited"];
+const baseUrl = "https://swapi.dev/api";
 
 const menuBar = document.getElementById("menuBar");
 const content = document.getElementById("content");
@@ -14,9 +13,9 @@ fetch(baseUrl)
         for (const key in data) {
             let menuItem = document.createElement("a");
 
-            menuItem.className = "menuItem";
             menuItem.innerText = key;
             menuItem.href = data[key];
+            menuItem.className = "menuItem";
             menuItem.addEventListener("click", menuClick);
 
             menuBar.appendChild(menuItem);
@@ -48,22 +47,20 @@ function showData(data) {
     data.results.forEach(item => {
 
         const card = document.createElement("div");
-
         card.className = "card";
 
         for (const [key, value] of Object.entries(item)) {
 
             try {
-                if (typeof value === "object" || keyFilter.includes(key) || value.includes('https')) {
+                if (typeof value === "object" || filter.includes(key) || value.includes("https")) {
                     continue;
                 }
                 else {
                     const p = document.createElement("p");
                     p.innerHTML = `${titleCase(key)}: ${value}`;
 
-                    card.dataset.url = item.url;
                     card.appendChild(p);
-
+                    card.dataset.url = item.url;
                     card.addEventListener("click", () => {
                         showAllData(item);
                     });
@@ -90,27 +87,27 @@ async function showAllData(data) {
 
         if (typeof value === "object") {
 
-            const subCard = document.createElement("div");
-            subCard.className = "subCard";
-            const category = document.createElement("p");
+            const title = document.createElement("p");
+            title.innerHTML = key;
 
-            category.innerHTML = key;
+            const indented = document.createElement("div");
+            indented.className = "indented";
+            indented.appendChild(title);
 
-            subCard.appendChild(category);
-
-            for (const key in value) {
+            for (const item in value) {
 
                 const p = document.createElement("p");
 
-                p.innerHTML = value[key];
-                subCard.appendChild(p);
+                p.innerHTML = value[item];
+                indented.appendChild(p);
             }
 
-            card.appendChild(subCard);
+            card.appendChild(indented);
         }
         else {
             const p = document.createElement("p");
             p.innerHTML = `${key}: ${value}`;
+
             card.appendChild(p);
         }
     }
@@ -149,3 +146,18 @@ if (document.querySelector(".active") == null) {
     let dadadaContainer = document.getElementById("dadadaContainer");
     dadadaContainer.appendChild(p);
 }
+
+var myAudio = document.getElementById("myAudio");
+let isPlaying = false;
+
+function togglePlay() {
+    isPlaying ? myAudio.pause() : myAudio.play();
+};
+
+myAudio.onplaying = function () {
+    isPlaying = true;
+};
+
+myAudio.onpause = function () {
+    isPlaying = false;
+};
