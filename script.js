@@ -147,7 +147,7 @@ if (document.querySelector(".active") == null) {
     dadadaContainer.appendChild(p);
 }
 
-var myAudio = document.getElementById("myAudio");
+/*var myAudio = document.getElementById("myAudio");
 let isPlaying = false;
 
 function togglePlay() {
@@ -161,3 +161,4 @@ myAudio.onplaying = function () {
 myAudio.onpause = function () {
     isPlaying = false;
 };
+*/
