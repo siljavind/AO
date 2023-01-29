@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: center;
 
-  background: url(./assets/img/troopers.jpg) no-repeat;
+  background: url(assets/img/troopers.jpg) no-repeat;
   background-size: cover;
   background-position-x: center;
 
