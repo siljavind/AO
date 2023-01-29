@@ -1,16 +1,16 @@
 @font-face {
   font-family: "StarLight";
-  src: url(assets/fonts/Starjhol.ttf);
+  src: url(AO/assets/fonts/Starjhol.ttf);
 }
 
 @font-face {
   font-family: "StarHeavy";
-  src: url(assets/fonts/Starjedi.ttf);
+  src: url(AO/assets/fonts/Starjedi.ttf);
 }
 
 @font-face {
   font-family: "OpenCrawl";
-  src: url(assets/fonts/Trade\ Gothic\ LT\ Bold\ No.\ 2.ttf);
+  src: url(AO/assets/fonts/Trade\ Gothic\ LT\ Bold\ No.\ 2.ttf);
 }
 
 * {
@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: center;
 
-  background: url(assets/img/troopers.jpg) no-repeat;
+  background: url(AO/assets/img/troopers.jpg) no-repeat;
   background-size: cover;
   background-position-x: center;
 
